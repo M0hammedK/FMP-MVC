@@ -5,9 +5,9 @@ namespace FMP_MVC.APPDB
 {
     public class DBConfig:DbContext
     {
-        public DbSet<Ticket> tickets { get; set; }
-        public DbSet<Movie> movies { get; set; }
-        public DbSet<Customer> customers { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
