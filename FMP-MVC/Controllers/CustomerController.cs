@@ -44,6 +44,7 @@ namespace FMP_MVC.Controllers
         {
             try
             {
+                using (db = new DBConfig());
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -58,6 +59,7 @@ namespace FMP_MVC.Controllers
             {
                 return View();
             }
+            using (db = new DBConfig());
             Customer customer = db.Customers.Find(id);
             if (customer == null)
             {
@@ -71,7 +73,9 @@ namespace FMP_MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Customer customer)
         {
+            using (db = new DBConfig());
             try{
+                using (db = new DBConfig());
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,6 +89,7 @@ namespace FMP_MVC.Controllers
             {
                 return View();
             }
+            using (db = new DBConfig());
             Customer customer = db.Customers.Find(id);
             if (customer == null)
             {
@@ -98,6 +103,7 @@ namespace FMP_MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            using (db = new DBConfig());
             Customer customer = db.Customers.Find(id);
             db.Customers.Remove(customer);
             db.SaveChanges();
