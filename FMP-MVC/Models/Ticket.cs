@@ -11,7 +11,7 @@ namespace FMP_MVC.Models
         [Required]
         public int Price { get; set; }
         [Required]
-        public DateTime Data { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         [ForeignKey("Movie")]
         public int Movie_Id { get; set; }

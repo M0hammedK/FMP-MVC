@@ -18,8 +18,12 @@ namespace FMP_MVC.Models
         [StringLength(50)]
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
+        [Required]
         [StringLength(50)]
         public string Password { get; set; }
+        [Required]
+        [NotMapped]
+        public string Password2 { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

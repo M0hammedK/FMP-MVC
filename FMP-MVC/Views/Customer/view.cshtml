@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "View All Data";
+    @model Ticket
+}
+
+<h1>View All Data</h1>
+<form asp-action="view" asp-controller="Customer" method="post">
+    <div class="form-group">
+        <h4>Customer Table</h4>
+        <br />
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Age
+                </th>
+                <th>
+                    Phone number
+                </th>
+                <th>
+                    Password
+                </th>
+            </tr>
+            @{
+                foreach (Customer c in ViewBag.Customers)
+                {
+                    <tr>
+                        <td>
+                            @c.Id
+                        </td>
+                        <td>
+                            @c.Name
+                        </td>
+                        <td>
+                            @c.Email
+                        </td>
+                        <td>
+                            @c.Age
+                        </td>
+                        <td>
+                            @c.PhoneNumber
+                        </td>
+                        <td>
+                            @c.Password
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <br /><br />
+        
+        <h4>Movie Table</h4>
+        <br />
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Move_Duration
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+            @{
+                foreach (Movie m in ViewBag.Movies)
+                {
+                    <tr>
+                        <td>
+                            @m.Id
+                        </td>
+                        <td>
+                            @m.Title
+                        </td>
+                        <td>
+                            @m.Date
+                        </td>
+                        <td>
+                            @m.Price
+                        </td>
+                        <td>
+                            @m.Movie_Duration
+                        </td>
+                        <td>
+                            @m.Description
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <br /><br />
+        
+        <h4>Ticket Table</h4>
+        <br />
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Movie_Id
+                </th>
+                <th>
+                    Customer_Id
+                </th>
+            </tr>
+            @{
+                foreach (Ticket t in ViewBag.Tickets)
+                {
+                    <tr>
+                        <td>
+                            @t.Id
+                        </td>
+                        <td>
+                            @t.Price
+                        </td>
+                        <td>
+                            @t.Date
+                        </td>
+                        <td>
+                            @t.Movie_Id
+                        </td>
+                        <td>
+                            @t.Customer_Id
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <br /><br />
+    </div>
+</form>
