@@ -83,72 +83,49 @@ namespace FMP_MVC.Controllers
         }
 
         // GET: Customers/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Delete_C(string id)
         {
-            if (id == null)
-            {
-                return View();
-            }
-            Customer customer = _db.Customers.Find(id);
-            if (customer == null)
-            {
-                return View();
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return View();
-            }
-            Customer customer = _db.Customers.Find(id);
-            if (customer == null)
-            {
-                return View();
-            }
-            return View(customer);
-        }
-
-        // POST: Customers/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
-        {
-            try{
-                _db.Entry(customer).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }catch (Exception ex) { return View(customer);}
-        }
-
-        // GET: Customers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return View();
-            }
-            Customer customer = _db.Customers.Find(id);
-            if (customer == null)
-            {
-                return View();
-            }
-            return View(customer);
-        }
-
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Customer customer = _db.Customers.Find(id);
-            _db.Customers.Remove(customer);
+            _db.Customers.Remove(_db.Customers.Find(int.Parse(id)));
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("view");
         }
 
+        [HttpPost]
+        public ActionResult Update_C(Composite composite)
+        {
+            _db.Customers.Update(composite.customer);
+            _db.SaveChanges();
+            return Redirect("view");
+        }
+
+        public ActionResult Delete_M(string id)
+        {
+            _db.Movies.Remove(_db.Movies.Find(int.Parse(id)));
+            _db.SaveChanges();
+            return Redirect("view");
+        }
+
+        [HttpPost]
+        public ActionResult Update_M(Composite composite)
+        {
+            _db.Movies.Update(composite.movie);
+            _db.SaveChanges();
+            return Redirect("view");
+        }
+
+        public ActionResult Delete_T(string id)
+        {
+            _db.Tickets.Remove(_db.Tickets.Find(int.Parse(id)));
+            _db.SaveChanges();
+            return Redirect("view");
+        }
+
+        [HttpPost]
+        public ActionResult Update_T(Composite composite)
+        {
+            _db.Tickets.Update(composite.ticket);
+            _db.SaveChanges();
+            return Redirect("view");
+        }
     }
 }

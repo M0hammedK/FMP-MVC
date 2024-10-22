@@ -1,156 +1,261 @@
 ﻿@{
     ViewData["Title"] = "View All Data";
-    @model Ticket
+    @model Composite;
 }
-
+<style>
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    a:hover{
+        color: black;
+    }
+</style>
 <h1>View All Data</h1>
-<form asp-action="view" asp-controller="Customer" method="post">
-    <div class="form-group">
-        <h4>Customer Table</h4>
-        <br />
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Username
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Age
-                </th>
-                <th>
-                    Phone number
-                </th>
-                <th>
-                    Password
-                </th>
-            </tr>
+<div class="form-group">
+    <h4>Customer Table</h4>
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Phone number
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Operations
+            </th>
+        </tr>
             @{
-                foreach (Customer c in ViewBag.Customers)
-                {
+            foreach (Customer c in ViewBag.Customers)
+            {
+                <form asp-action="Update_C" asp-controller="Customer" method="post">
                     <tr>
                         <td>
-                            @c.Id
+                            <input id="@($"i{c.Id}")" asp-for="customer.Id" value="@c.Id" disabled/>
                         </td>
                         <td>
-                            @c.Name
+                            <input id="@($"n{c.Id}")" asp-for="customer.Name" value="@c.Name" disabled/>
                         </td>
                         <td>
-                            @c.Email
+                            <input id="@($"e{c.Id}")" asp-for="customer.Email" value="@c.Email" disabled/>
                         </td>
                         <td>
-                            @c.Age
+                            <input id="@($"a{c.Id}")" asp-for="customer.Age" value="@c.Age" disabled/>
                         </td>
                         <td>
-                            @c.PhoneNumber
+                            <input id="@($"ph{c.Id}")" asp-for="customer.PhoneNumber" value="@c.PhoneNumber" disabled/>
                         </td>
                         <td>
-                            @c.Password
+                            <input id="@($"pa{c.Id}")" asp-for="customer.Password" value="@c.Password" disabled/>
+                        </td>
+                        <td>
+                            <input id="@($"edit{c.Id}")" name="@c.Id" type="button" value="Edit" onclick="editing(this)"/>
+                            <input id="@($"close{c.Id}")" hidden="hidden" name="@c.Id" type="submit" value="Save" onclick="closing(this)"/>
+                            <button id = "delete"><a href="Delete_C?id=@c.Id">Delete</a></button>
                         </td>
                     </tr>
+                </form>
                 }
             }
-        </table>
-        <br /><br />
+            
+    </table>
+    <br /><br />
         
-        <h4>Movie Table</h4>
-        <br />
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Move_Duration
-                </th>
-                <th>
-                    Description
-                </th>
-            </tr>
-            @{
-                foreach (Movie m in ViewBag.Movies)
-                {
+    <h4>Movie Table</h4>
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Move_Duration
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Operations
+            </th>
+        </tr>
+        @{
+            foreach (Movie m in ViewBag.Movies)
+            {
+                <form asp-action="Update_M" asp-controller="Customer" method="post">
                     <tr>
                         <td>
-                            @m.Id
+                            <input id="@($"i{m.Id}")" asp-for="movie.Id" value="@m.Id" disabled/>
                         </td>
                         <td>
-                            @m.Title
+                            <input id="@($"n{m.Id}")" asp-for="movie.Title" value="@m.Title" disabled/>
                         </td>
                         <td>
-                            @m.Date
+                            <input id="@($"e{m.Id}")" asp-for="movie.Date" value="@m.Date" disabled/>
                         </td>
                         <td>
-                            @m.Price
+                            <input id="@($"a{m.Id}")" asp-for="movie.Price" value="@m.Price" disabled/>
                         </td>
                         <td>
-                            @m.Movie_Duration
+                            <input id="@($"ph{m.Id}")" asp-for="movie.Movie_Duration" value="@m.Movie_Duration" disabled/>
                         </td>
                         <td>
-                            @m.Description
+                            <input id="@($"pa{m.Id}")" asp-for="movie.Description" value="@m.Description" disabled/>
+                        </td>
+                        <td>
+                            <input id="@($"edit{m.Id}")" name="@m.Id" type="button" value="Edit" onclick="editing(this)"/>
+                            <input id="@($"close{m.Id}")" hidden="hidden" name="@m.Id" type="submit" value="Save" onclick="closing(this)"/>
+                            <button id = "delete"><a href="Delete_M?id=@m.Id">Delete</a></button>
                         </td>
                     </tr>
-                }
+                </form>
             }
-        </table>
-        <br /><br />
+        }
+    </table>
+    <br /><br />
         
-        <h4>Ticket Table</h4>
-        <br />
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Movie_Id
-                </th>
-                <th>
-                    Customer_Id
-                </th>
-            </tr>
-            @{
-                foreach (Ticket t in ViewBag.Tickets)
-                {
+    <h4>Ticket Table</h4>
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Movie_Id
+            </th>
+            <th>
+                Customer_Id
+            </th>
+            <th>
+                Operations
+            </th>
+        </tr>
+        @{
+            foreach (Ticket t in ViewBag.Tickets)
+            {
+                <form asp-action="Update_T" asp-controller="Customer" method="post">
                     <tr>
                         <td>
-                            @t.Id
+                            <input id="@($"i{t.Id}")" asp-for="ticket.Id" value="@t.Id" disabled/>
                         </td>
                         <td>
-                            @t.Price
+                            <input id="@($"n{t.Id}")" asp-for="ticket.Price" value="@t.Price" disabled/>
                         </td>
                         <td>
-                            @t.Date
+                            <input id="@($"e{t.Id}")" asp-for="ticket.Date" value="@t.Date" disabled/>
                         </td>
                         <td>
-                            @t.Movie_Id
+                            <input id="@($"a{t.Id}")" asp-for="ticket.Customer_Id" value="@t.Customer_Id" disabled/>
                         </td>
                         <td>
-                            @t.Customer_Id
+                            <input id="@($"ph{t.Id}")" asp-for="ticket.Movie_Id" value="@t.Movie_Id" disabled/>
+                        </td>
+                        <td>
+                            <input id="@($"edit{t.Id}")" name="@t.Id" type="button" value="Edit" onclick="editingT(this)"/>
+                            <input id="@($"close{t.Id}")" hidden="hidden" name="@t.Id" type="submit" value="Save" onclick="closingT(this)"/>
+                            <button id = "delete"><a href="Delete_T?id=@t.Id">Delete</a></button>
                         </td>
                     </tr>
-                }
+                </form>
             }
-        </table>
-        <br /><br />
-    </div>
-</form>
+        }
+    </table>
+    <br /><br />
+</div>
+
+<script>
+    function editing(button) {
+        const row = button.closest('tr');
+        const id = button.name;
+        console.log(id);
+        row.querySelector(`#n${id}`).disabled = false;
+        row.querySelector(`#e${id}`).disabled = false;
+        row.querySelector(`#a${id}`).disabled = false;
+        row.querySelector(`#ph${id}`).disabled = false;
+        row.querySelector(`#pa${id}`).disabled = false;
+
+        button.hidden = true;
+        row.querySelector(`input[type="submit"][name="${id}"]`).hidden = false;
+        row.querySelector('#delete').hidden = true; // Adjust if you're using IDs correctly
+    }
+
+    function closing(button) {
+        const row = button.closest('tr');
+        const id = button.name;
+        
+        row.querySelector(`#a${id}`).disabled = false;
+        row.querySelector(`#ph${id}`).disabled = false;
+        row.querySelector(`#i${id}`).disabled = false;
+        button.submit();
+        row.querySelector(`#i${id}`).disabled = true;
+        row.querySelector(`#ph${id}`).disabled = true;
+        row.querySelector(`#a${id}`).disabled = true;
+
+        row.querySelector(`#n${id}`).disabled = true;
+        row.querySelector(`#e${id}`).disabled = true;
+
+        button.hidden = true;
+        row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
+        row.querySelector('#delete').hidden = false; // Adjust if you're using IDs correctly
+    }
+    function editingT(button) {
+        const row = button.closest('tr');
+        const id = button.name;
+
+        row.querySelector(`#n${id}`).disabled = false;
+        row.querySelector(`#e${id}`).disabled = false;
+       
+        button.hidden = true;
+        row.querySelector(`input[type="submit"][name="${id}"]`).hidden = false;
+        row.querySelector('#delete').hidden = true; // Adjust if you're using IDs correctly
+    }
+
+    function closingT(button) {
+        const row = button.closest('tr');
+        const id = button.name;
+        
+        row.querySelector(`#i${id}`).disabled = false;
+        row.querySelector(`#a${id}`).disabled = false;
+        row.querySelector(`#ph${id}`).disabled = false;
+        button.submit();
+        row.querySelector(`#i${id}`).disabled = true;
+        row.querySelector(`#a${id}`).disabled = true;
+        row.querySelector(`#ph${id}`).disabled = true;
+
+        row.querySelector(`#n${id}`).disabled = true;
+        row.querySelector(`#e${id}`).disabled = true;
+
+        button.hidden = true;
+        row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
+        row.querySelector('#delete').hidden = false;
+}
+</script>
