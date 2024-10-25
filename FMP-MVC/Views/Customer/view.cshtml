@@ -12,6 +12,7 @@
     }
 </style>
 <h1>View All Data</h1>
+    <h5 class="text-danger">@ViewData["error"]</h5>
 <div class="form-group">
     <h4>Customer Table</h4>
     <br />
@@ -65,7 +66,7 @@
                         <td>
                             <input id="@($"edit{c.Id}")" name="@c.Id" type="button" value="Edit" onclick="editing(this)"/>
                             <input id="@($"close{c.Id}")" hidden="hidden" name="@c.Id" type="submit" value="Save" onclick="closing(this)"/>
-                            <button id = "delete"><a href="Delete_C?id=@c.Id">Delete</a></button>
+                            <button type="button" id = "delete" name="@c.Id" onclick="deleting_c(this)">Delete</button>
                         </td>
                     </tr>
                 </form>
@@ -127,7 +128,7 @@
                         <td>
                             <input id="@($"edit{m.Id}")" name="@m.Id" type="button" value="Edit" onclick="editing(this)"/>
                             <input id="@($"close{m.Id}")" hidden="hidden" name="@m.Id" type="submit" value="Save" onclick="closing(this)"/>
-                            <button id = "delete"><a href="Delete_M?id=@m.Id">Delete</a></button>
+                            <button type="button" id = "delete" name="@m.Id" onclick="deleting_m(this)">Delete</button>
                         </td>
                     </tr>
                 </form>
@@ -182,7 +183,7 @@
                         <td>
                             <input id="@($"edit{t.Id}")" name="@t.Id" type="button" value="Edit" onclick="editingT(this)"/>
                             <input id="@($"close{t.Id}")" hidden="hidden" name="@t.Id" type="submit" value="Save" onclick="closingT(this)"/>
-                            <button id = "delete"><a href="Delete_T?id=@t.Id">Delete</a></button>
+                            <button type="button" id = "delete" name="@t.Id" onclick="deleting_t(this)">Delete</button>
                         </td>
                     </tr>
                 </form>
@@ -209,25 +210,30 @@
     }
 
     function closing(button) {
-        const row = button.closest('tr');
-        const id = button.name;
+        let flag = confirm("are you sure to save it");
+        if(flag)
+        {
+            row = button.closest('tr');
+            const id = button.name;
         
-        row.querySelector(`#a${id}`).disabled = false;
-        row.querySelector(`#ph${id}`).disabled = false;
-        row.querySelector(`#i${id}`).disabled = false;
-        button.submit();
-        row.querySelector(`#i${id}`).disabled = true;
-        row.querySelector(`#ph${id}`).disabled = true;
-        row.querySelector(`#a${id}`).disabled = true;
+            row.querySelector(`#a${id}`).disabled = false;
+            row.querySelector(`#ph${id}`).disabled = false;
+            row.querySelector(`#i${id}`).disabled = false;
+            button.submit();
+            row.querySelector(`#i${id}`).disabled = true;
+            row.querySelector(`#ph${id}`).disabled = true;
+            row.querySelector(`#a${id}`).disabled = true;
 
-        row.querySelector(`#n${id}`).disabled = true;
-        row.querySelector(`#e${id}`).disabled = true;
+            row.querySelector(`#n${id}`).disabled = true;
+            row.querySelector(`#e${id}`).disabled = true;
 
-        button.hidden = true;
-        row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
-        row.querySelector('#delete').hidden = false; // Adjust if you're using IDs correctly
+            button.hidden = true;
+            row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
+            row.q
+            constuerySelector('#delete').hidden = false; // Adjust if you're using IDs correctly
+        }
     }
-    function editingT(button) {
+    function editingT(button) { 
         const row = button.closest('tr');
         const id = button.name;
 
@@ -240,22 +246,57 @@
     }
 
     function closingT(button) {
-        const row = button.closest('tr');
-        const id = button.name;
+        let flag = confirm("are you sure to save it");
+        if(flag)
+        {
+            const row = button.closest('tr');
+            const id = button.name;
         
-        row.querySelector(`#i${id}`).disabled = false;
-        row.querySelector(`#a${id}`).disabled = false;
-        row.querySelector(`#ph${id}`).disabled = false;
-        button.submit();
-        row.querySelector(`#i${id}`).disabled = true;
-        row.querySelector(`#a${id}`).disabled = true;
-        row.querySelector(`#ph${id}`).disabled = true;
+            row.querySelector(`#i${id}`).disabled = false;
+            row.querySelector(`#a${id}`).disabled = false;
+            row.querySelector(`#ph${id}`).disabled = false;
+            button.submit();
+            row.querySelector(`#i${id}`).disabled = true;
+            row.querySelector(`#a${id}`).disabled = true;
+            row.querySelector(`#ph${id}`).disabled = true;
 
-        row.querySelector(`#n${id}`).disabled = true;
-        row.querySelector(`#e${id}`).disabled = true;
+            row.querySelector(`#n${id}`).disabled = true;
+            row.querySelector(`#e${id}`).disabled = true;
 
-        button.hidden = true;
-        row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
-        row.querySelector('#delete').hidden = false;
-}
+            button.hidden = true;
+            row.querySelector(`input[type="button"][name="${id}"]`).hidden = false;
+            row.querySelector('#delete').hidden = false;
+        }
+    }
+
+        function deleting_c(button){
+            const row = button.closest('tr');
+            const id = button.name;
+            const value = document.getElementById(`n${id}`).getAttribute("value");
+            const flag = confirm("Are sure to delete " + value + "?");
+            if(flag)
+            {
+                window.location.href = "Delete_C?id=" + id;
+            }
+        }
+        function deleting_m(button){
+            const row = button.closest('tr');
+            const id = button.name;
+            const value = document.getElementById(`n${id}`).getAttribute("value");
+            const flag = confirm("Are sure to delete " + value + "?");
+            if(flag)
+            {
+                window.location.href = "Delete_M?id=" + id;
+            }
+       }
+       function deleting_t(button){
+            const row = button.closest('tr');
+            const id = button.name;
+            const value = document.getElementById(`n${id}`).getAttribute("value");
+            const flag = confirm("Are sure to delete " + value + "?");
+            if(flag)
+            {
+                window.location.href = "Delete_T?id=" + id;
+            }
+       }
 </script>

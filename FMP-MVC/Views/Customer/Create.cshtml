@@ -19,13 +19,13 @@
    
         <label asp-for="Age">Age</label>
     <br />
-        <input asp-for="Age" required />
+        <input asp-for="Age" required min="5" max="100" value="5" />
     <br />
     <br />
     
         <label asp-for="PhoneNumber">Phone Number</label>
     <br />
-        <input type="text" asp-for="PhoneNumber" pattern="^(70|71|73|77|78)[0-9]{7}" title="The phone number must start witn 73, 77, 71, 70,78 and the length must be 9 numbers" />
+        <input type="text" asp-for="PhoneNumber" required pattern="^(70|71|73|77|78)[0-9]{7}" title="The phone number must start witn 73, 77, 71, 70,78 and the length must be 9 numbers" />
     <br />
     <br />
    
@@ -41,6 +41,10 @@
     <br />
     <br />
     <input type="submit" value="Add"/>
+    <br />
+    <br />
+    <h5 class="text-danger">@ViewData["error"]</h5>
+    <h5 style="color:green;">@ViewData["done"]</h5>
     <div/>
 
 </form>

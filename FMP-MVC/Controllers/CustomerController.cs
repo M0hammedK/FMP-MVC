@@ -17,6 +17,8 @@ namespace FMP_MVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewData["error"] = "";
+            ViewData["done"] = "";
             return View();
         }
 
@@ -24,10 +26,22 @@ namespace FMP_MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Customer customer)
         {
+            List <Customer> email = _db.Customers.Where(x => x.Email == customer.Email).ToList();
+            if (email.Count != 0)
+            {
+                ViewData["error"] = "This Email is already exist";
+                return View();
+            }
+            else if(customer.Password != customer.Password2)
+            {
+                ViewData["error"] = "The two passrwords are not same";
+                return View();
+            }
             try
             {
                 _db.Customers.Add(customer);
                 _db.SaveChanges();
+                ViewData["done"] = "The user has created successfully";
                 return View();
             }
             catch (Exception ex) { return View(); }
@@ -36,6 +50,7 @@ namespace FMP_MVC.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            ViewData["done"] = "";
             return View();
         }
 
@@ -47,17 +62,20 @@ namespace FMP_MVC.Controllers
             {
                 _db.Movies.Add(movie);
                 _db.SaveChanges();
+                ViewData["done"] = "The movie added successfully";
                 return View();
             }
             catch (Exception ex) { return View(); }
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult Get(string data = "")
         {
             ViewBag.Customers = _db.Customers.ToList();
             ViewBag.Movies = _db.Movies.ToList();
-            return View();
+            ViewData["done"] = data;
+            return View();           
+
         }
 
         [HttpPost]
@@ -68,7 +86,8 @@ namespace FMP_MVC.Controllers
             {
                 _db.Tickets.Add(ticket);
                 _db.SaveChanges();
-                return Redirect("Get");
+                ViewData["done"] = "Congratulation, you got your ticket successfully";
+                return RedirectToAction("Get", new { data = "Congratulations, you got your ticket successfully!" });
             }
             catch (Exception ex) { return View(); }
         }
@@ -96,6 +115,7 @@ namespace FMP_MVC.Controllers
             _db.Customers.Update(composite.customer);
             _db.SaveChanges();
             return Redirect("view");
+
         }
 
         public ActionResult Delete_M(string id)
